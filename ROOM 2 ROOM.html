@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROOM2ROOM – The Ultimate Hostel Marketplace | CGC University, Mohali</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            crimson: {
+              50: '#fff1f2',
+              100: '#ffe4e6',
+              200: '#fecdd3',
+              500: '#f43f5e',
+              600: '#dc2626',
+              700: '#b91c1c',
+              800: '#991b1b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #ffffff; }
+    ::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #dc2626; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-white text-neutral-900 antialiased selection:bg-red-600 selection:text-white">
+
+  <!-- Top Sticky Navigation -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <!-- Brand Logo + Official CGC University Mohali Logo -->
+      <a href="#" class="flex items-center gap-3 group shrink-0">
+        <!-- CGC University Mohali Logo -->
+        <div class="h-10 px-2 rounded-xl bg-white border border-gray-200 shadow-2xs flex items-center justify-center overflow-hidden">
+          <img
+            src="https://www.cgcuniversity.in/conference/iciamt-2025/images/CGC_Logo.png"
+            alt="CGC University Mohali Logo"
+            class="h-8 w-auto object-contain"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <!-- Crisp SVG Fallback Emblem if offline -->
+          <div style="display:none;" class="items-center gap-1.5 px-1">
+            <span class="w-6 h-6 rounded-md bg-red-600 text-white font-black text-[10px] flex items-center justify-center">CGC</span>
+            <span class="text-[10px] font-extrabold text-neutral-900 leading-tight">CGC<br><span class="text-red-600">MOHALI</span></span>
+          </div>
+        </div>
+
+        <div class="h-6 w-[1px] bg-gray-200 hidden sm:block"></div>
+
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="font-extrabold text-base sm:text-lg tracking-tight text-neutral-900 block leading-none">
+              ROOM<span class="text-red-600">2</span>ROOM
+            </span>
+            <span class="bg-red-50 text-red-600 border border-red-200 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider">CGC Mohali</span>
+          </div>
+          <span class="text-[10px] font-semibold text-neutral-500 block mt-0.5">
+            6 Hostels • 7 Academic Blocks
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-neutral-600">
+        <a href="#marketplace" class="hover:text-red-600 transition">Browse Feed</a>
+        <button onclick="openCampusMapModal()" class="hover:text-red-600 transition flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+          </svg>
+          <span>6 Hostels & 7 Blocks</span>
+        </button>
+        <a href="#safe-zones" class="hover:text-red-600 transition">Safe Meet Spots</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2">
+        <!-- Wishlist / Saved Items Button -->
+        <button onclick="openWishlistDrawer()" class="relative p-2.5 rounded-xl border border-gray-100 hover:border-red-200 hover:bg-red-50 text-neutral-700 hover:text-red-600 transition" title="Saved Items">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+          <span id="wishlistBadge" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-600 text-white text-[10px] font-bold flex items-center justify-center hidden">0</span>
+        </button>
+
+        <!-- Messages Button -->
+        <button onclick="openChatDrawer(activeChatProduct)" class="relative p-2.5 rounded-xl border border-gray-100 hover:border-red-200 hover:bg-red-50 text-neutral-700 hover:text-red-600 transition" title="Messages">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+          <span id="unreadBadge" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-600 text-white text-[10px] font-bold flex items-center justify-center">1</span>
+        </button>
+
+        <!-- Post Ad CTA -->
+        <button onclick="openPostModal()" class="inline-flex items-center gap-1.5 bg-red-600 hover:bg-red-700 active:scale-[0.99] text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-sm transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+          </svg>
+          <span>Post an Ad</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden border-b border-gray-100 bg-gradient-to-b from-red-50/60 via-white to-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12 sm:pt-12 sm:pb-16">
+      
+      <!-- Semester Move-Out Banner -->
+      <div class="max-w-3xl mx-auto mb-6">
+        <div class="flex items-center justify-between gap-2 bg-neutral-900 text-white text-xs px-4 py-2.5 rounded-xl shadow-md">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-red-500 animate-ping shrink-0"></span>
+            <span><strong class="text-red-400">Hostel Move-Out Deals:</strong> Seniors from Tagore, Chanakya & Ivory are listing coolers & drafters at up to 60% off!</span>
+          </div>
+          <button onclick="filterByUrgent()" class="underline font-bold text-red-400 hover:text-white transition whitespace-nowrap">View Deals</button>
+        </div>
+      </div>
+
+      <div class="max-w-3xl mx-auto text-center">
+        <!-- CGC University Mohali Verification Pill -->
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white border border-red-100 shadow-xs mb-6">
+          <img
+            src="https://www.cgcuniversity.in/conference/iciamt-2025/images/CGC_Logo.png"
+            alt="CGC Logo"
+            class="h-4 w-auto object-contain"
+            onerror="this.style.display='none'"
+          />
+          <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+          <span class="text-xs font-semibold text-neutral-800">Exclusive Student Marketplace for CGC University, Mohali</span>
+        </div>
+
+        <!-- Catchy Tagline -->
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-neutral-900 leading-[1.15] mb-4">
+          From One Room to Another – <span class="text-red-600">Seamless, Safe, and Affordable.</span>
+        </h1>
+
+        <!-- Subheadline -->
+        <p class="text-base sm:text-lg text-neutral-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+          Built exclusively for hostellers across <strong>Tagore, Chanakya, Einstein, Rosewood, Ivory & D Hostel</strong>. Trade essentials and swap items between classes across all <strong>7 Academic Blocks</strong>.
+        </p>
+
+        <!-- Dual CTAs -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-10">
+          <a href="#marketplace" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold px-7 py-3.5 rounded-xl shadow-md shadow-red-600/15 transition">
+            <span>Browse Hostel Items</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </a>
+          <button onclick="openPostModal()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-red-50 text-red-600 border-2 border-red-600 font-semibold px-7 py-3 rounded-xl transition">
+            <span>Post an Ad</span>
+            <span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-md font-bold">₹10 Fee</span>
+          </button>
+        </div>
+
+        <!-- Value Proposition Badges -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl mx-auto text-left">
+          <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-white border border-gray-100 shadow-2xs">
+            <div class="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-bold text-neutral-900">Zero-Distance Deals</p>
+              <p class="text-xs text-neutral-500">All 6 CGC Mohali hostels covered</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-white border border-gray-100 shadow-2xs">
+            <div class="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-bold text-neutral-900">CGC Verified Ecosystem</p>
+              <p class="text-xs text-neutral-500">Handoffs across Blocks 1–7</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-white border border-gray-100 shadow-2xs">
+            <div class="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-bold text-neutral-900">By Hostellers, For Hostellers</p>
+              <p class="text-xs text-neutral-500">Zero shipping, student prices</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marketplace Feed & Smart Filters -->
+  <main id="marketplace" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    
+    <!-- Search, Hostel & Academic Block Controls -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-3 mb-5">
+      <!-- Real-Time Search Bar -->
+      <div class="relative md:col-span-6">
+        <svg class="w-5 h-5 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input
+          type="text"
+          id="searchInput"
+          oninput="filterProducts()"
+          placeholder="Search coolers, drafters, kettles, cycles, lab coats..."
+          class="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 focus:border-red-600 focus:ring-2 focus:ring-red-600/15 outline-none text-sm transition bg-white"
+        />
+      </div>
+
+      <!-- Hostel Filter (Exact 6 CGC Mohali Hostels) -->
+      <div class="relative md:col-span-3">
+        <select
+          id="hostelFilter"
+          onchange="filterProducts()"
+          class="w-full appearance-none pl-4 pr-10 py-3 rounded-xl border border-gray-200 focus:border-red-600 focus:ring-2 focus:ring-red-600/15 outline-none text-sm font-medium text-neutral-800 bg-white cursor-pointer transition"
+        >
+          <option value="All">All 6 CGC Hostels</option>
+          <option value="Tagore Hostel">Tagore Hostel</option>
+          <option value="Chanakya Hostel">Chanakya Hostel</option>
+          <option value="Einstein Hostel">Einstein Hostel</option>
+          <option value="Rosewood Hostel">Rosewood Hostel</option>
+          <option value="Ivory Hostel">Ivory Hostel</option>
+          <option value="D Hostel">D Hostel</option>
+        </select>
+        <svg class="w-4 h-4 text-neutral-500 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
+
+      <!-- Academic Block Pickup Filter (All 7 University Blocks) -->
+      <div class="relative md:col-span-3">
+        <select
+          id="academicBlockFilter"
+          onchange="filterProducts()"
+          class="w-full appearance-none pl-4 pr-10 py-3 rounded-xl border border-gray-200 focus:border-red-600 focus:ring-2 focus:ring-red-600/15 outline-none text-sm font-medium text-neutral-800 bg-white cursor-pointer transition"
+        >
+          <option value="All">All 7 Campus Blocks</option>
+          <option value="Block 1">Block 1 (Admin & Engg)</option>
+          <option value="Block 2">Block 2 (Computing & IT)</option>
+          <option value="Block 3">Block 3 (Management)</option>
+          <option value="Block 4">Block 4 (Pharmacy)</option>
+          <option value="Block 5">Block 5 (Law & Arts)</option>
+          <option value="Block 6">Block 6 (Applied Sciences)</option>
+          <option value="Block 7">Block 7 (Central Labs)</option>
+        </select>
+        <svg class="w-4 h-4 text-neutral-500 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Category Toggle Pills -->
+    <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2 mb-6">
+      <button onclick="setCategory('All')" data-cat="All" class="cat-pill active-pill px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition bg-red-600 text-white shadow-xs">
+        All Listings
+      </button>
+      <button onclick="setCategory('Hostel Essentials')" data-cat="Hostel Essentials" class="cat-pill px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition bg-white text-neutral-700 border border-gray-200 hover:border-red-300 hover:text-red-600">
+        Hostel Essentials
+      </button>
+      <button onclick="setCategory('Academics')" data-cat="Academics" class="cat-pill px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition bg-white text-neutral-700 border border-gray-200 hover:border-red-300 hover:text-red-600">
+        Academics
+      </button>
+      <button onclick="setCategory('Lifestyle & Electronics')" data-cat="Lifestyle & Electronics" class="cat-pill px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition bg-white text-neutral-700 border border-gray-200 hover:border-red-300 hover:text-red-600">
+        Lifestyle & Electronics
+      </button>
+    </div>
+
+    <!-- Feed Header & Count -->
+    <div class="flex items-center justify-between mb-5">
+      <div>
+        <h2 class="text-lg sm:text-xl font-bold text-neutral-900">Fresh in CGC Hostels Today</h2>
+        <p id="resultsCount" class="text-xs text-neutral-500 mt-0.5">Showing 9 verified student listings</p>
+      </div>
+      <button onclick="resetFilters()" id="resetBtn" class="hidden text-xs font-semibold text-red-600 hover:underline">
+        Clear Filters
+      </button>
+    </div>
+
+    <!-- Product Grid -->
+    <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+      <!-- Cards injected via JS -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="hidden text-center py-16 px-4 border border-dashed border-gray-200 rounded-2xl">
+      <div class="w-12 h-12 rounded-full bg-red-50 text-red-600 flex items-center justify-center mx-auto mb-3">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+      <h3 class="text-base font-bold text-neutral-900 mb-1">No matching hostel items found</h3>
+      <p class="text-sm text-neutral-500 mb-4">Try switching hostels (Tagore, Chanakya, Einstein, Rosewood, Ivory, D Hostel) or clearing filters.</p>
+      <button onclick="resetFilters()" class="px-4 py-2 rounded-xl bg-red-600 text-white text-xs font-semibold hover:bg-red-700 transition">
+        Reset All Filters
+      </button>
+    </div>
+
+    <!-- Campus Overview: 6 Hostels & 7 Academic Blocks Quick Navigator -->
+    <section class="mt-14 rounded-2xl border border-gray-100 bg-white p-6 sm:p-8 shadow-2xs">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-red-600">Hyper-Local Campus Grid</span>
+          <h3 class="text-xl font-bold text-neutral-900 mt-0.5">Quick Filter by CGC Mohali Hostels & Blocks</h3>
+        </div>
+        <button onclick="openCampusMapModal()" class="text-xs font-bold text-red-600 hover:text-red-700 bg-red-50 px-3.5 py-2 rounded-xl self-start sm:self-auto transition">
+          Open Full 7-Block Directory →
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- 6 Hostels -->
+        <div class="p-4 rounded-xl bg-gray-50/70 border border-gray-100">
+          <p class="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-3">6 Residence Hostels</p>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="quickSelectHostel('Tagore Hostel')" class="px-3 py-1.5 rounded-lg bg-white border border-gray-200 hover:border-red-500 hover:text-red-600 text-xs font-semibold transition">Tagore Hostel</button>
+            <button onclick="quickSelectHostel('Chanakya Hostel')" class="px-3 py-1.5 rounded-lg bg-white border border-gray-200 hover:border-red-500 hover:text-red-600 text-xs font-semibold transition">Chanakya Hostel</button>
+            <button onclick="quickSelectHostel('Einstein Hostel')" class="px-3 py-1.5 rounded-lg bg-white border border-gray-200 hover:border-red-500 hover:text-red-600 text-xs font-semibold transition">Einstein Hostel</button>
+            <button onclick="quickSelectHostel('Rosewood Hostel')" class="px-3 py-1.5 rounded-lg bg-white border border-gray-200 hover:border-red-500 hover:text-red-600 text-xs font-semibold transition">Rosewood Hostel</button>
+            <button onclick="quickSelectHostel('Ivory Hostel')" class="px-3 py-1.5 rounded-lg bg-white border border-gray-200 hover:border-red-500 hover:text-red-600 text-xs font-semibold transition">Ivory Hostel</button>
+            <button onclick="quickSelectHostel('D Hostel')" class="px-3 py-1.5 rounded-lg bg-white border border-gray-200 hover:border-red-500 hover:text-red-600 text-xs font-semibold transition">D Hostel</button>
+          </div>
+        </div>
+
+        <!-- 7 Academic Blocks -->
+        <div class="p-4 rounded-xl bg-gray-50/70 border border-gray-100">
+          <p class="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-3">7 Campus Academic Blocks (Daytime Swaps)</p>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="quickSelectBlock('Block 1')" class="px-3 py-1.5 rounded-lg bg-white border border-gray-200 hover:border-red-500 hover:text-red-600 text-xs font-semibold transition">Block 1</button>
+            <button onclick="quickSelectBlock('Block 2')" class="px-3 py-1.5 rounded-lg bg-white border border-gray-200 hover:border-red-500 hover:text-red-600 text-xs font-semibold transition">Block 2</button>
+            <button onclick="quickSelectBlock('Block 3')" class="px-3 py-1.5 rounded-lg bg-white border border-gray-200 hover:border-red-500 hover:text-red-600 text-xs font-semibold transition">Block 3</button>
+            <button onclick="quickSelectBlock('Block 4')" class="px-3 py-1.5 rounded-lg bg-white border border-gray-200 hover:border-red-500 hover:text-red-600 text-xs font-semibold transition">Block 4</button>
+            <button onclick="quickSelectBlock('Block 5')" class="px-3 py-1.5 rounded-lg bg-white border border-gray-200 hover:border-red-500 hover:text-red-600 text-xs font-semibold transition">Block 5</button>
+            <button onclick="quickSelectBlock('Block 6')" class="px-3 py-1.5 rounded-lg bg-white border border-gray-200 hover:border-red-500 hover:text-red-600 text-xs font-semibold transition">Block 6</button>
+            <button onclick="quickSelectBlock('Block 7')" class="px-3 py-1.5 rounded-lg bg-white border border-gray-200 hover:border-red-500 hover:text-red-600 text-xs font-semibold transition">Block 7</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Verified Safe Zones Banner -->
+    <section id="safe-zones" class="mt-8 rounded-2xl border border-gray-100 bg-neutral-50 p-6 sm:p-8">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div class="max-w-xl">
+          <span class="inline-block text-xs font-bold uppercase tracking-wider text-red-600 mb-1.5">Campus Safety Protocol</span>
+          <h3 class="text-xl font-bold text-neutral-900 mb-2">CGC Verified Safe Exchange Zones</h3>
+          <p class="text-sm text-neutral-600 leading-relaxed">
+            Never share personal phone numbers until you're ready. Inspect items and complete UPI/cash handoffs only at high-footfall checkpoints across CGC Mohali.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 shrink-0">
+          <div class="bg-white p-3.5 rounded-xl border border-gray-100">
+            <p class="text-xs font-bold text-neutral-900">1. Central Food Court</p>
+            <p class="text-[11px] text-neutral-500 mt-0.5">Ideal for books, kettles & calculators</p>
+          </div>
+          <div class="bg-white p-3.5 rounded-xl border border-gray-100">
+            <p class="text-xs font-bold text-neutral-900">2. Hostel Warden Gate</p>
+            <p class="text-[11px] text-neutral-500 mt-0.5">Tagore, Chanakya, Einstein, Rosewood, Ivory & D Hostel gates</p>
+          </div>
+          <div class="bg-white p-3.5 rounded-xl border border-gray-100">
+            <p class="text-xs font-bold text-neutral-900">3. Block 1 & 7 Courtyards</p>
+            <p class="text-[11px] text-neutral-500 mt-0.5">Daytime swaps between lectures</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-100 bg-white mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
+      <div class="flex items-center gap-3">
+        <img
+          src="https://www.cgcuniversity.in/conference/iciamt-2025/images/CGC_Logo.png"
+          alt="CGC University Mohali"
+          class="h-6 w-auto object-contain"
+          onerror="this.style.display='none'"
+        />
+        <span class="font-extrabold text-neutral-900">ROOM<span class="text-red-600">2</span>ROOM</span>
+        <span>• Built by Hostellers for CGC University, Mohali</span>
+      </div>
+      <p>Student-to-student campus classifieds. Always inspect before paying.</p>
+    </div>
+  </footer>
+
+  <!-- ========================================================= -->
+  <!-- 1. PRODUCT DETAIL MODAL                                   -->
+  <!-- ========================================================= -->
+  <div id="detailModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-xs p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-3xl w-full overflow-hidden shadow-2xl border border-gray-100 my-auto">
+      <div class="flex items-center justify-between px-5 py-3.5 border-b border-gray-100">
+        <div class="flex items-center gap-2">
+          <span id="modalCategoryBadge" class="text-xs font-bold px-2.5 py-1 rounded-md bg-red-50 text-red-600">Category</span>
+          <span id="modalAcademicBlockBadge" class="text-xs font-semibold px-2.5 py-1 rounded-md bg-gray-100 text-neutral-700">Block 1</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="modalWishlistBtn" onclick="toggleWishlistFromModal()" class="p-2 rounded-lg text-neutral-500 hover:text-red-600 hover:bg-red-50 transition border border-gray-200" title="Save to Wishlist">
+            <svg id="modalHeartIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </button>
+          <button onclick="closeDetailModal()" class="p-1.5 rounded-lg text-neutral-400 hover:text-neutral-900 hover:bg-gray-100 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2">
+        <!-- Left: Image Carousel -->
+        <div class="bg-gray-50 p-4 flex flex-col justify-between">
+          <div class="relative aspect-square rounded-xl overflow-hidden bg-white border border-gray-100">
+            <img id="modalMainImage" src="" alt="Item preview" class="w-full h-full object-cover" />
+            <button onclick="prevModalImg()" class="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-neutral-800 shadow-sm flex items-center justify-center transition">
+              ‹
+            </button>
+            <button onclick="nextModalImg()" class="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-neutral-800 shadow-sm flex items-center justify-center transition">
+              ›
+            </button>
+          </div>
+          <div id="modalThumbnails" class="flex items-center justify-center gap-2 mt-3"></div>
+        </div>
+
+        <!-- Right: Product Info & Safe Zone -->
+        <div class="p-5 sm:p-6 flex flex-col justify-between">
+          <div>
+            <h3 id="modalTitle" class="text-xl font-extrabold text-neutral-900 leading-snug mb-2">Item Title</h3>
+            <div class="flex items-center gap-2.5 mb-4">
+              <span id="modalPrice" class="text-2xl font-extrabold text-red-600">₹0</span>
+              <span id="modalCondition" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-gray-100 text-neutral-700">Like New</span>
+            </div>
+
+            <p id="modalDescription" class="text-sm text-neutral-600 leading-relaxed mb-5">
+              Description goes here.
+            </p>
+
+            <div class="p-3.5 rounded-xl border border-gray-100 bg-gray-50/70 mb-4">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <div id="modalSellerInitials" class="w-9 h-9 rounded-full bg-red-600 text-white font-bold text-xs flex items-center justify-center">
+                    AR
+                  </div>
+                  <div>
+                    <p id="modalSellerName" class="text-sm font-bold text-neutral-900">Aarav Sharma</p>
+                    <p id="modalLocationHint" class="text-xs text-neutral-500">Tagore Hostel • 3rd Floor</p>
+                  </div>
+                </div>
+                <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                  ✓ CGC ID Verified
+                </span>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-red-50 border border-red-100 flex items-start gap-2.5 mb-5">
+              <svg class="w-4 h-4 text-red-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <div class="text-xs text-red-900">
+                <span class="font-bold">Verified Safe Zone Reminder:</span> Meet at <span id="modalSafeSpot" class="font-semibold underline">Tagore Hostel Main Gate</span> to inspect before paying.
+              </div>
+            </div>
+          </div>
+
+          <button id="modalChatBtn" class="w-full py-3.5 px-5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-sm transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+            <span>Chat & Negotiate with Seller</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- 2. POST AN AD MODAL (All 6 Hostels + 7 Blocks)             -->
+  <!-- ========================================================= -->
+  <div id="postModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-xs p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl border border-gray-100 my-auto">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <div>
+          <h3 class="text-lg font-extrabold text-neutral-900">Post a CGC Hostel Ad</h3>
+          <p class="text-xs text-neutral-500">Reach hostellers across all 6 hostels & 7 blocks</p>
+        </div>
+        <button onclick="closePostModal()" class="p-1.5 rounded-lg text-neutral-400 hover:text-neutral-900 hover:bg-gray-100 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form id="postAdForm" onsubmit="submitNewAd(event)" class="p-6 space-y-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5">Item Photo</label>
+          <label class="flex flex-col items-center justify-center border-2 border-dashed border-gray-200 hover:border-red-500 rounded-xl p-4 cursor-pointer bg-gray-50/50 hover:bg-red-50/30 transition">
+            <svg class="w-6 h-6 text-red-600 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span id="uploadFileName" class="text-xs font-semibold text-neutral-700">Click to upload clear photo (JPG, PNG)</span>
+            <input type="file" accept="image/*" class="hidden" onchange="handleImageUpload(event)" />
+          </label>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5">Item Title</label>
+          <input type="text" id="adTitle" required placeholder="e.g., Bajaj 36L Air Cooler or Engineering Drafter" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:border-red-600 outline-none text-sm" />
+        </div>
+
+        <!-- Hostel & Academic Block -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5">Your Hostel</label>
+            <select id="adHostel" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:border-red-600 outline-none text-sm bg-white">
+              <option value="Tagore Hostel">Tagore Hostel</option>
+              <option value="Chanakya Hostel">Chanakya Hostel</option>
+              <option value="Einstein Hostel">Einstein Hostel</option>
+              <option value="Rosewood Hostel">Rosewood Hostel</option>
+              <option value="Ivory Hostel">Ivory Hostel</option>
+              <option value="D Hostel">D Hostel</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5">Academic Block (Class Swap)</label>
+            <select id="adAcademicBlock" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:border-red-600 outline-none text-sm bg-white">
+              <option value="Block 1">Block 1</option>
+              <option value="Block 2">Block 2</option>
+              <option value="Block 3">Block 3</option>
+              <option value="Block 4">Block 4</option>
+              <option value="Block 5">Block 5</option>
+              <option value="Block 6">Block 6</option>
+              <option value="Block 7">Block 7</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5">Category</label>
+            <select id="adCategory" class="w-full px-3 py-2.5 rounded-xl border border-gray-200 focus:border-red-600 outline-none text-sm bg-white">
+              <option value="Hostel Essentials">Hostel Essentials</option>
+              <option value="Academics">Academics</option>
+              <option value="Lifestyle & Electronics">Lifestyle & Electronics</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5">Price (₹)</label>
+            <input type="number" id="adPrice" required min="10" placeholder="1200" class="w-full px-3 py-2.5 rounded-xl border border-gray-200 focus:border-red-600 outline-none text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5">Condition</label>
+            <select id="adCondition" class="w-full px-3 py-2.5 rounded-xl border border-gray-200 focus:border-red-600 outline-none text-sm bg-white">
+              <option value="Like New">Like New</option>
+              <option value="Gently Used">Gently Used</option>
+              <option value="1 Sem Old">1 Sem Old</option>
+              <option value="Good Working">Good Working</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5">Short Description & Room Hint</label>
+          <textarea id="adDesc" rows="2" required placeholder="Mention age of item, accessories included, and floor/wing..." class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:border-red-600 outline-none text-sm"></textarea>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3">
+          <div class="w-7 h-7 rounded-lg bg-red-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0 mt-0.5">
+            ₹10
+          </div>
+          <div>
+            <p class="text-xs font-bold text-red-900">₹10 Flat Spam-Protection Listing Fee</p>
+            <p class="text-[11px] text-red-800/90 mt-0.5 leading-relaxed">
+              We charge a symbolic ₹10 campus fee per listing to prevent fake ads and keep ROOM2ROOM 100% genuine for CGC University, Mohali students.
+            </p>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-sm shadow-sm transition">
+          Pay ₹10 & Publish Listing Live
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- 3. IN-BUILT DIRECT CHAT DRAWER                           -->
+  <!-- ========================================================= -->
+  <div id="chatOverlay" onclick="closeChatDrawer()" class="fixed inset-0 z-50 hidden bg-black/40 backdrop-blur-xs transition-opacity"></div>
+  <aside id="chatDrawer" class="fixed top-0 right-0 z-50 h-full w-full max-w-md bg-white shadow-2xl border-l border-gray-100 translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between bg-white">
+      <div class="flex items-center gap-3">
+        <div id="chatSellerAvatar" class="w-10 h-10 rounded-full bg-red-600 text-white font-bold text-sm flex items-center justify-center">
+          RK
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <h4 id="chatSellerName" class="text-sm font-bold text-neutral-900">Rohan Kapoor</h4>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700">Verified</span>
+          </div>
+          <p id="chatItemContext" class="text-xs text-neutral-500 truncate max-w-[220px]">Symphony 27L Cooler • ₹2,400</p>
+        </div>
+      </div>
+      <button onclick="closeChatDrawer()" class="p-2 rounded-lg text-neutral-400 hover:text-neutral-900 hover:bg-gray-100 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="px-4 py-2 bg-red-50 border-b border-red-100 text-[11px] text-red-800 flex items-center gap-2">
+      <svg class="w-3.5 h-3.5 text-red-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+      </svg>
+      <span>Phone numbers hidden. Negotiate safely inside ROOM2ROOM.</span>
+    </div>
+
+    <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50/50"></div>
+
+    <div class="px-4 py-2.5 bg-white border-t border-gray-100 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+      <button onclick="sendQuickMessage('Is this still available?')" class="px-3 py-1.5 rounded-full border border-gray-200 hover:border-red-500 hover:text-red-600 text-xs font-medium whitespace-nowrap transition">
+        Is it still available?
+      </button>
+      <button onclick="sendQuickMessage('Can we meet at Central Food Court at 5 PM?')" class="px-3 py-1.5 rounded-full border border-gray-200 hover:border-red-500 hover:text-red-600 text-xs font-medium whitespace-nowrap transition">
+        Meet at Food Court 5 PM?
+      </button>
+      <button onclick="sendQuickMessage('Any final student discount possible?')" class="px-3 py-1.5 rounded-full border border-gray-200 hover:border-red-500 hover:text-red-600 text-xs font-medium whitespace-nowrap transition">
+        Final student price?
+      </button>
+    </div>
+
+    <form onsubmit="handleChatSubmit(event)" class="p-3.5 bg-white border-t border-gray-100 flex items-center gap-2">
+      <input
+        type="text"
+        id="chatInput"
+        placeholder="Type your offer or campus meetup spot..."
+        class="flex-1 px-3.5 py-2.5 rounded-xl border border-gray-200 focus:border-red-600 outline-none text-sm"
+      />
+      <button type="submit" class="px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold text-sm transition shrink-0">
+        Send
+      </button>
+    </form>
+  </aside>
+
+  <!-- ========================================================= -->
+  <!-- 4. WISHLIST / SAVED ITEMS DRAWER                          -->
+  <!-- ========================================================= -->
+  <div id="wishlistOverlay" onclick="closeWishlistDrawer()" class="fixed inset-0 z-50 hidden bg-black/40 backdrop-blur-xs transition-opacity"></div>
+  <aside id="wishlistDrawer" class="fixed top-0 right-0 z-50 h-full w-full max-w-md bg-white shadow-2xl border-l border-gray-100 translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between bg-white">
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+        <h3 class="text-base font-bold text-neutral-900">Saved Hostel Wishlist</h3>
+      </div>
+      <button onclick="closeWishlistDrawer()" class="p-2 rounded-lg text-neutral-400 hover:text-neutral-900 hover:bg-gray-100 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="wishlistItemsContainer" class="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50/40"></div>
+  </aside>
+
+  <!-- ========================================================= -->
+  <!-- 5. CGC MOHALI 6 HOSTELS & 7 BLOCKS DIRECTORY MODAL        -->
+  <!-- ========================================================= -->
+  <div id="campusMapModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-xs p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-3xl w-full overflow-hidden shadow-2xl border border-gray-100 my-auto p-6">
+      <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
+        <div class="flex items-center gap-3">
+          <img
+            src="https://www.cgcuniversity.in/conference/iciamt-2025/images/CGC_Logo.png"
+            alt="CGC Logo"
+            class="h-7 w-auto object-contain"
+            onerror="this.style.display='none'"
+          />
+          <div>
+            <h3 class="text-lg font-extrabold text-neutral-900">CGC University, Mohali Campus Directory</h3>
+            <p class="text-xs text-neutral-500">Tap any of the 6 Hostels or 7 Academic Blocks to filter listings</p>
+          </div>
+        </div>
+        <button onclick="closeCampusMapModal()" class="p-1.5 rounded-lg text-neutral-400 hover:text-neutral-900 hover:bg-gray-100 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-sm">
+        <!-- Left Column: All 6 Hostels -->
+        <div>
+          <h4 class="text-xs font-extrabold uppercase tracking-wider text-red-600 mb-2.5">6 University Hostels</h4>
+          <div class="space-y-2">
+            <div onclick="selectHostelFromMap('Tagore Hostel')" class="p-3 rounded-xl border border-gray-200 hover:border-red-500 hover:bg-red-50/40 cursor-pointer transition flex items-center justify-between">
+              <div>
+                <p class="font-bold text-neutral-900 text-xs">Tagore Hostel</p>
+                <p class="text-[11px] text-neutral-500">Zero-distance room & gate handoffs</p>
+              </div>
+              <span class="text-[11px] font-bold text-red-600">Browse →</span>
+            </div>
+            <div onclick="selectHostelFromMap('Chanakya Hostel')" class="p-3 rounded-xl border border-gray-200 hover:border-red-500 hover:bg-red-50/40 cursor-pointer transition flex items-center justify-between">
+              <div>
+                <p class="font-bold text-neutral-900 text-xs">Chanakya Hostel</p>
+                <p class="text-[11px] text-neutral-500">Near central campus pathways</p>
+              </div>
+              <span class="text-[11px] font-bold text-red-600">Browse →</span>
+            </div>
+            <div onclick="selectHostelFromMap('Einstein Hostel')" class="p-3 rounded-xl border border-gray-200 hover:border-red-500 hover:bg-red-50/40 cursor-pointer transition flex items-center justify-between">
+              <div>
+                <p class="font-bold text-neutral-900 text-xs">Einstein Hostel</p>
+                <p class="text-[11px] text-neutral-500">Quick walk to engineering & lab blocks</p>
+              </div>
+              <span class="text-[11px] font-bold text-red-600">Browse →</span>
+            </div>
+            <div onclick="selectHostelFromMap('Rosewood Hostel')" class="p-3 rounded-xl border border-gray-200 hover:border-red-500 hover:bg-red-50/40 cursor-pointer transition flex items-center justify-between">
+              <div>
+                <p class="font-bold text-neutral-900 text-xs">Rosewood Hostel</p>
+                <p class="text-[11px] text-neutral-500">Verified reception gate pickup</p>
+              </div>
+              <span class="text-[11px] font-bold text-red-600">Browse →</span>
+            </div>
+            <div onclick="selectHostelFromMap('Ivory Hostel')" class="p-3 rounded-xl border border-gray-200 hover:border-red-500 hover:bg-red-50/40 cursor-pointer transition flex items-center justify-between">
+              <div>
+                <p class="font-bold text-neutral-900 text-xs">Ivory Hostel</p>
+                <p class="text-[11px] text-neutral-500">2 min walk to Central Food Court</p>
+              </div>
+              <span class="text-[11px] font-bold text-red-600">Browse →</span>
+            </div>
+            <div onclick="selectHostelFromMap('D Hostel')" class="p-3 rounded-xl border border-gray-200 hover:border-red-500 hover:bg-red-50/40 cursor-pointer transition flex items-center justify-between">
+              <div>
+                <p class="font-bold text-neutral-900 text-xs">D Hostel</p>
+                <p class="text-[11px] text-neutral-500">Easy access for coolers & mattresses</p>
+              </div>
+              <span class="text-[11px] font-bold text-red-600">Browse →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: All 7 Academic Blocks -->
+        <div>
+          <h4 class="text-xs font-extrabold uppercase tracking-wider text-red-600 mb-2.5">7 Academic Blocks</h4>
+          <div class="space-y-2">
+            <div onclick="selectBlockFromMap('Block 1')" class="p-2.5 rounded-xl border border-gray-200 hover:border-red-500 hover:bg-red-50/40 cursor-pointer transition flex items-center justify-between">
+              <span class="font-bold text-neutral-900 text-xs">Block 1 – Admin & Engineering</span>
+              <span class="text-[11px] font-bold text-red-600">Filter →</span>
+            </div>
+            <div onclick="selectBlockFromMap('Block 2')" class="p-2.5 rounded-xl border border-gray-200 hover:border-red-500 hover:bg-red-50/40 cursor-pointer transition flex items-center justify-between">
+              <span class="font-bold text-neutral-900 text-xs">Block 2 – Computing & IT</span>
+              <span class="text-[11px] font-bold text-red-600">Filter →</span>
+            </div>
+            <div onclick="selectBlockFromMap('Block 3')" class="p-2.5 rounded-xl border border-gray-200 hover:border-red-500 hover:bg-red-50/40 cursor-pointer transition flex items-center justify-between">
+              <span class="font-bold text-neutral-900 text-xs">Block 3 – Management & Commerce</span>
+              <span class="text-[11px] font-bold text-red-600">Filter →</span>
+            </div>
+            <div onclick="selectBlockFromMap('Block 4')" class="p-2.5 rounded-xl border border-gray-200 hover:border-red-500 hover:bg-red-50/40 cursor-pointer transition flex items-center justify-between">
+              <span class="font-bold text-neutral-900 text-xs">Block 4 – Pharmacy & Health</span>
+              <span class="text-[11px] font-bold text-red-600">Filter →</span>
+            </div>
+            <div onclick="selectBlockFromMap('Block 5')" class="p-2.5 rounded-xl border border-gray-200 hover:border-red-500 hover:bg-red-50/40 cursor-pointer transition flex items-center justify-between">
+              <span class="font-bold text-neutral-900 text-xs">Block 5 – Law & Humanities</span>
+              <span class="text-[11px] font-bold text-red-600">Filter →</span>
+            </div>
+            <div onclick="selectBlockFromMap('Block 6')" class="p-2.5 rounded-xl border border-gray-200 hover:border-red-500 hover:bg-red-50/40 cursor-pointer transition flex items-center justify-between">
+              <span class="font-bold text-neutral-900 text-xs">Block 6 – Applied Sciences</span>
+              <span class="text-[11px] font-bold text-red-600">Filter →</span>
+            </div>
+            <div onclick="selectBlockFromMap('Block 7')" class="p-2.5 rounded-xl border border-gray-200 hover:border-red-500 hover:bg-red-50/40 cursor-pointer transition flex items-center justify-between">
+              <span class="font-bold text-neutral-900 text-xs">Block 7 – Central Labs & Innovation</span>
+              <span class="text-[11px] font-bold text-red-600">Filter →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 hidden items-center gap-2 bg-neutral-900 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-lg">
+    <span class="w-2 h-2 rounded-full bg-red-500"></span>
+    <span id="toastMessage">Listing published!</span>
+  </div>
+
+  <!-- Application Logic -->
+  <script>
+    let products = [
+      {
+        id: 1,
+        title: "Symphony Ice Cube 27L Hostel Air Cooler",
+        price: 2400,
+        category: "Hostel Essentials",
+        hostel: "Tagore Hostel",
+        academicBlock: "Block 1",
+        roomHint: "2nd Floor, B-Wing",
+        condition: "1 Sem Old",
+        seller: "Rohan Kapoor",
+        initials: "RK",
+        safeSpot: "Tagore Hostel Main Gate",
+        description: "Bought last summer, works silently and cools a double-sharing hostel room in 10 minutes. Honeycombs cleaned and ready for pickup.",
+        images: [
+          "https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1614631446501-abcf76949eca?auto=format&fit=crop&w=800&q=80"
+        ]
+      },
+      {
+        id: 2,
+        title: "Omega Mini Engineering Drafter + Sheet Holder",
+        price: 380,
+        category: "Academics",
+        hostel: "Ivory Hostel",
+        academicBlock: "Block 2",
+        roomHint: "4th Floor, East Corridor",
+        condition: "Like New",
+        seller: "Ananya Verma",
+        initials: "AV",
+        safeSpot: "Central Food Court / Block 2 Entrance",
+        description: "Complete 1st-year Engineering Graphics kit with zero scratches on scale markings. Includes telescopic black sheet tube.",
+        images: [
+          "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80"
+        ]
+      },
+      {
+        id: 3,
+        title: "Hero Sprint 26T Gearless Campus Cycle",
+        price: 3200,
+        category: "Lifestyle & Electronics",
+        hostel: "Chanakya Hostel",
+        academicBlock: "Block 7",
+        roomHint: "Ground Parking Rack #4",
+        condition: "Gently Used",
+        seller: "Harpreet Gill",
+        initials: "HG",
+        safeSpot: "Chanakya Hostel Security Gate",
+        description: "Super handy for quick morning lectures between Hostels and Block 7. New rear tyre, smooth brakes, and includes number lock.",
+        images: [
+          "https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?auto=format&fit=crop&w=800&q=80"
+        ]
+      },
+      {
+        id: 4,
+        title: "Prestige 1.5L Stainless Steel Electric Kettle",
+        price: 550,
+        category: "Hostel Essentials",
+        hostel: "Rosewood Hostel",
+        academicBlock: "Block 4",
+        roomHint: "1st Floor, Room 114",
+        condition: "Like New",
+        seller: "Sneha Nair",
+        initials: "SN",
+        safeSpot: "Rosewood Hostel Reception Gate",
+        description: "Auto shut-off working cleanly. Lifesaver for midnight Maggi, coffee, and hot water during Mohali winters.",
+        images: [
+          "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=800&q=80"
+        ]
+      },
+      {
+        id: 5,
+        title: "Casio fx-991EX Classwiz Scientific Calculator",
+        price: 750,
+        category: "Academics",
+        hostel: "Einstein Hostel",
+        academicBlock: "Block 6",
+        roomHint: "3rd Floor, A-Wing",
+        condition: "Like New",
+        seller: "Devansh Mehta",
+        initials: "DM",
+        safeSpot: "Block 6 Courtyard / Einstein Gate",
+        description: "Original Casio non-programmable calculator allowed in all CGC semester exams. Slide cover intact.",
+        images: [
+          "https://images.unsplash.com/photo-1574607383476-f517f260d30b?auto=format&fit=crop&w=800&q=80"
+        ]
+      },
+      {
+        id: 6,
+        title: "Rechargeable LED Study Desk Lamp + 4-Socket Spike",
+        price: 420,
+        category: "Lifestyle & Electronics",
+        hostel: "Ivory Hostel",
+        academicBlock: "Block 3",
+        roomHint: "2nd Floor, West Wing",
+        condition: "Good Working",
+        seller: "Simran Kaur",
+        initials: "SK",
+        safeSpot: "Central Food Court",
+        description: "3 brightness modes with 4-hour battery backup during power cuts, bundled with a heavy-duty 2-meter extension board.",
+        images: [
+          "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80"
+        ]
+      },
+      {
+        id: 7,
+        title: "Sleepwell Single Hostel Foam Mattress (6x3 ft)",
+        price: 1100,
+        category: "Hostel Essentials",
+        hostel: "D Hostel",
+        academicBlock: "Block 5",
+        roomHint: "2nd Floor, Room 209",
+        condition: "Gently Used",
+        seller: "Karanveer Singh",
+        initials: "KS",
+        safeSpot: "D Hostel Main Gate",
+        description: "4-inch high-density orthopedic foam mattress. Always used with a waterproof protector. Zero sag.",
+        images: [
+          "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80"
+        ]
+      },
+      {
+        id: 8,
+        title: "White Cotton Lab Coat (Size M) + Safety Goggles",
+        price: 250,
+        category: "Academics",
+        hostel: "Rosewood Hostel",
+        academicBlock: "Block 4",
+        roomHint: "3rd Floor, Room 308",
+        condition: "1 Sem Old",
+        seller: "Priya Chauhan",
+        initials: "PC",
+        safeSpot: "Block 4 Main Entrance",
+        description: "Freshly washed crisp white chemistry/pharmacy apron with protective lab glasses. No stains.",
+        images: [
+          "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80"
+        ]
+      },
+      {
+        id: 9,
+        title: "Bajaj 1200W Immersion Water Heater Rod + Bucket",
+        price: 340,
+        category: "Hostel Essentials",
+        hostel: "Einstein Hostel",
+        academicBlock: "Block 1",
+        roomHint: "1st Floor, Room 105",
+        condition: "Like New",
+        seller: "Manpreet Saini",
+        initials: "MS",
+        safeSpot: "Einstein Hostel Main Gate",
+        description: "Shock-proof copper heating rod with 20L heavy-duty plastic bucket. Essential for winter mornings.",
+        images: [
+          "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80"
+        ]
+      }
+    ];
+
+    let selectedCategory = "All";
+    let currentModalProduct = null;
+    let currentModalImgIdx = 0;
+    let activeChatProduct = products[0];
+    let uploadedImagePreview = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80";
+    let savedWishlistIds = [];
+
+    const chatThreads = {
+      1: [
+        { sender: "seller", text: "Hey! Yes, the Symphony cooler is still available in Tagore Hostel. Can hand it over at Tagore Gate or near Block 1.", time: "1:12 PM" }
+      ]
+    };
+
+    function renderProducts(list) {
+      const grid = document.getElementById("productGrid");
+      const emptyState = document.getElementById("emptyState");
+      const resultsCount = document.getElementById("resultsCount");
+      const resetBtn = document.getElementById("resetBtn");
+
+      const searchVal = document.getElementById("searchInput").value.trim();
+      const hostelVal = document.getElementById("hostelFilter").value;
+      const blockVal = document.getElementById("academicBlockFilter").value;
+      const hasFilters = selectedCategory !== "All" || hostelVal !== "All" || blockVal !== "All" || searchVal !== "";
+
+      resetBtn.classList.toggle("hidden", !hasFilters);
+      resultsCount.textContent = `Showing ${list.length} verified student listing${list.length === 1 ? "" : "s"}`;
+
+      if (list.length === 0) {
+        grid.innerHTML = "";
+        emptyState.classList.remove("hidden");
+        return;
+      }
+
+      emptyState.classList.add("hidden");
+      grid.innerHTML = list.map(item => {
+        const isSaved = savedWishlistIds.includes(item.id);
+        return `
+          <article class="group bg-white rounded-2xl border border-gray-100 hover:border-red-200 shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col overflow-hidden relative">
+            <!-- Wishlist Heart Button -->
+            <button onclick="toggleWishlist(${item.id}, event)" class="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-neutral-700 shadow-sm flex items-center justify-center transition" title="Save to Wishlist">
+              <svg class="w-4 h-4 ${isSaved ? "text-red-600 fill-red-600" : "text-neutral-600"}" fill="${isSaved ? "currentColor" : "none"}" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </button>
+
+            <!-- Card Image -->
+            <div onclick="openDetailModal(${item.id})" class="relative aspect-[4/3] bg-gray-50 overflow-hidden cursor-pointer">
+              <img src="${item.images[0]}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-white/95 backdrop-blur-xs text-[11px] font-bold text-neutral-800 shadow-2xs">
+                ${item.condition}
+              </span>
+              <div class="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1.5">
+                <span class="px-2 py-1 rounded-lg bg-neutral-900/85 text-white text-[10px] font-semibold flex items-center gap-1 truncate">
+                  <svg class="w-3 h-3 text-red-400 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                  </svg>
+                  ${item.hostel}
+                </span>
+                <span class="px-2 py-1 rounded-lg bg-red-600/95 text-white text-[10px] font-bold shrink-0">
+                  ${item.academicBlock}
+                </span>
+              </div>
+            </div>
+
+            <!-- Card Content -->
+            <div class="p-4 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-1">
+                  <span class="text-[11px] font-semibold text-red-600">${item.category}</span>
+                  <span class="text-[11px] text-neutral-400">by ${item.seller.split(" ")[0]}</span>
+                </div>
+                <h3 onclick="openDetailModal(${item.id})" class="font-bold text-neutral-900 text-sm sm:text-base line-clamp-2 group-hover:text-red-600 transition cursor-pointer mb-2">
+                  ${item.title}
+                </h3>
+              </div>
+
+              <div class="pt-3 border-t border-gray-100 flex items-center justify-between gap-2 mt-2">
+                <div>
+                  <span class="text-lg font-extrabold text-neutral-900">₹${item.price.toLocaleString("en-IN")}</span>
+                </div>
+                <button onclick="openChatDrawerById(${item.id})" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-red-50 hover:bg-red-600 text-red-600 hover:text-white text-xs font-bold transition">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                  <span>Chat with Seller</span>
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function filterProducts() {
+      const query = document.getElementById("searchInput").value.toLowerCase().trim();
+      const hostel = document.getElementById("hostelFilter").value;
+      const academicBlock = document.getElementById("academicBlockFilter").value;
+
+      const filtered = products.filter(item => {
+        const matchesCat = selectedCategory === "All" || item.category === selectedCategory;
+        const matchesHostel = hostel === "All" || item.hostel === hostel;
+        const matchesBlock = academicBlock === "All" || item.academicBlock === academicBlock;
+        const matchesQuery =
+          item.title.toLowerCase().includes(query) ||
+          item.description.toLowerCase().includes(query) ||
+          item.hostel.toLowerCase().includes(query) ||
+          item.academicBlock.toLowerCase().includes(query);
+        return matchesCat && matchesHostel && matchesBlock && matchesQuery;
+      });
+
+      renderProducts(filtered);
+    }
+
+    function setCategory(cat) {
+      selectedCategory = cat;
+      document.querySelectorAll(".cat-pill").forEach(btn => {
+        const isMatch = btn.dataset.cat === cat;
+        btn.className = isMatch
+          ? "cat-pill px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition bg-red-600 text-white shadow-xs"
+          : "cat-pill px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition bg-white text-neutral-700 border border-gray-200 hover:border-red-300 hover:text-red-600";
+      });
+      filterProducts();
+    }
+
+    function resetFilters() {
+      document.getElementById("searchInput").value = "";
+      document.getElementById("hostelFilter").value = "All";
+      document.getElementById("academicBlockFilter").value = "All";
+      setCategory("All");
+    }
+
+    function quickSelectHostel(hostelName) {
+      document.getElementById("hostelFilter").value = hostelName;
+      filterProducts();
+      document.getElementById("marketplace").scrollIntoView({ behavior: "smooth" });
+      showToast(`Filtered by ${hostelName}`);
+    }
+
+    function quickSelectBlock(blockName) {
+      document.getElementById("academicBlockFilter").value = blockName;
+      filterProducts();
+      document.getElementById("marketplace").scrollIntoView({ behavior: "smooth" });
+      showToast(`Filtered by ${blockName}`);
+    }
+
+    function filterByUrgent() {
+      document.getElementById("searchInput").value = "Cooler";
+      filterProducts();
+      document.getElementById("marketplace").scrollIntoView({ behavior: "smooth" });
+      showToast("Showing senior move-out flash deals!");
+    }
+
+    // Wishlist Logic
+    function toggleWishlist(id, event) {
+      if (event) event.stopPropagation();
+      const index = savedWishlistIds.indexOf(id);
+      if (index > -1) {
+        savedWishlistIds.splice(index, 1);
+        showToast("Removed item from saved wishlist");
+      } else {
+        savedWishlistIds.push(id);
+        showToast("Added item to saved wishlist!");
+      }
+      updateWishlistBadge();
+      filterProducts();
+      if (currentModalProduct && currentModalProduct.id === id) {
+        updateModalWishlistUI();
+      }
+    }
+
+    function toggleWishlistFromModal() {
+      if (currentModalProduct) {
+        toggleWishlist(currentModalProduct.id);
+      }
+    }
+
+    function updateWishlistBadge() {
+      const badge = document.getElementById("wishlistBadge");
+      const count = savedWishlistIds.length;
+      if (count > 0) {
+        badge.textContent = count;
+        badge.classList.remove("hidden");
+      } else {
+        badge.classList.add("hidden");
+      }
+    }
+
+    function updateModalWishlistUI() {
+      if (!currentModalProduct) return;
+      const isSaved = savedWishlistIds.includes(currentModalProduct.id);
+      const heartIcon = document.getElementById("modalHeartIcon");
+      heartIcon.classList.toggle("text-red-600", isSaved);
+      heartIcon.classList.toggle("fill-red-600", isSaved);
+    }
+
+    function openWishlistDrawer() {
+      const container = document.getElementById("wishlistItemsContainer");
+      const savedItems = products.filter(p => savedWishlistIds.includes(p.id));
+
+      if (savedItems.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-16 px-4">
+            <p class="text-sm font-bold text-neutral-800 mb-1">Your wishlist is empty</p>
+            <p class="text-xs text-neutral-500">Tap the heart icon on any hostel listing to save it for later.</p>
+          </div>
+        `;
+      } else {
+        container.innerHTML = savedItems.map(item => `
+          <div class="flex items-center gap-3 bg-white p-3 rounded-xl border border-gray-100 shadow-2xs">
+            <img src="${item.images[0]}" class="w-16 h-16 rounded-lg object-cover shrink-0" />
+            <div class="flex-1 min-w-0">
+              <h4 class="text-xs font-bold text-neutral-900 truncate">${item.title}</h4>
+              <p class="text-xs font-extrabold text-red-600 mt-0.5">₹${item.price.toLocaleString("en-IN")}</p>
+              <p class="text-[10px] text-neutral-400">${item.hostel} • ${item.academicBlock}</p>
+            </div>
+            <div class="flex flex-col gap-1 shrink-0">
+              <button onclick="openDetailModal(${item.id}); closeWishlistDrawer();" class="px-2.5 py-1 rounded bg-red-50 text-red-600 text-[11px] font-bold hover:bg-red-600 hover:text-white transition">View</button>
+              <button onclick="toggleWishlist(${item.id}); openWishlistDrawer();" class="text-neutral-400 hover:text-neutral-700 text-[10px] text-center">Remove</button>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      document.getElementById("wishlistOverlay").classList.remove("hidden");
+      document.getElementById("wishlistDrawer").classList.remove("translate-x-full");
+    }
+
+    function closeWishlistDrawer() {
+      document.getElementById("wishlistOverlay").classList.add("hidden");
+      document.getElementById("wishlistDrawer").classList.add("translate-x-full");
+    }
+
+    // Campus Directory Modal Logic
+    function openCampusMapModal() {
+      const modal = document.getElementById("campusMapModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function closeCampusMapModal() {
+      const modal = document.getElementById("campusMapModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    function selectHostelFromMap(hostelName) {
+      closeCampusMapModal();
+      quickSelectHostel(hostelName);
+    }
+
+    function selectBlockFromMap(blockName) {
+      closeCampusMapModal();
+      quickSelectBlock(blockName);
+    }
+
+    // Product Detail Modal Logic
+    function openDetailModal(id) {
+      const item = products.find(p => p.id === id);
+      if (!item) return;
+      currentModalProduct = item;
+      currentModalImgIdx = 0;
+
+      document.getElementById("modalCategoryBadge").textContent = item.category;
+      document.getElementById("modalAcademicBlockBadge").textContent = `${item.academicBlock} Swap`;
+      document.getElementById("modalTitle").textContent = item.title;
+      document.getElementById("modalPrice").textContent = `₹${item.price.toLocaleString("en-IN")}`;
+      document.getElementById("modalCondition").textContent = item.condition;
+      document.getElementById("modalDescription").textContent = item.description;
+      document.getElementById("modalSellerName").textContent = item.seller;
+      document.getElementById("modalSellerInitials").textContent = item.initials;
+      document.getElementById("modalLocationHint").textContent = `${item.hostel} (${item.roomHint}) • ${item.academicBlock}`;
+      document.getElementById("modalSafeSpot").textContent = item.safeSpot;
+
+      updateModalWishlistUI();
+
+      document.getElementById("modalChatBtn").onclick = () => {
+        closeDetailModal();
+        openChatDrawer(item);
+      };
+
+      updateModalCarousel();
+      const modal = document.getElementById("detailModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function updateModalCarousel() {
+      if (!currentModalProduct) return;
+      const imgs = currentModalProduct.images;
+      document.getElementById("modalMainImage").src = imgs[currentModalImgIdx];
+
+      const thumbContainer = document.getElementById("modalThumbnails");
+      thumbContainer.innerHTML = imgs.map((src, idx) => `
+        <button onclick="selectModalImg(${idx})" class="w-12 h-12 rounded-lg overflow-hidden border-2 transition ${idx === currentModalImgIdx ? "border-red-600" : "border-transparent opacity-60 hover:opacity-100"}">
+          <img src="${src}" class="w-full h-full object-cover" />
+        </button>
+      `).join("");
+    }
+
+    function selectModalImg(idx) {
+      currentModalImgIdx = idx;
+      updateModalCarousel();
+    }
+
+    function nextModalImg() {
+      if (!currentModalProduct) return;
+      currentModalImgIdx = (currentModalImgIdx + 1) % currentModalProduct.images.length;
+      updateModalCarousel();
+    }
+
+    function prevModalImg() {
+      if (!currentModalProduct) return;
+      currentModalImgIdx = (currentModalImgIdx - 1 + currentModalProduct.images.length) % currentModalProduct.images.length;
+      updateModalCarousel();
+    }
+
+    function closeDetailModal() {
+      const modal = document.getElementById("detailModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    // Post Ad Modal Logic
+    function openPostModal() {
+      const modal = document.getElementById("postModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function closePostModal() {
+      const modal = document.getElementById("postModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    function handleImageUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      document.getElementById("uploadFileName").textContent = `Selected: ${file.name}`;
+      const reader = new FileReader();
+      reader.onload = e => {
+        uploadedImagePreview = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function submitNewAd(event) {
+      event.preventDefault();
+      const title = document.getElementById("adTitle").value.trim();
+      const category = document.getElementById("adCategory").value;
+      const hostel = document.getElementById("adHostel").value;
+      const academicBlock = document.getElementById("adAcademicBlock").value;
+      const price = parseInt(document.getElementById("adPrice").value, 10);
+      const condition = document.getElementById("adCondition").value;
+      const description = document.getElementById("adDesc").value.trim();
+
+      const newProduct = {
+        id: Date.now(),
+        title,
+        price,
+        category,
+        hostel,
+        academicBlock,
+        roomHint: "Verified Hosteller Room",
+        condition,
+        seller: "You (CGC Student)",
+        initials: "YO",
+        safeSpot: `${hostel} Main Gate or ${academicBlock}`,
+        description,
+        images: [uploadedImagePreview]
+      };
+
+      products.unshift(newProduct);
+      closePostModal();
+      event.target.reset();
+      document.getElementById("uploadFileName").textContent = "Click to upload clear photo (JPG, PNG)";
+      resetFilters();
+      showToast("₹10 Fee Verified! Your CGC hostel ad is now live.");
+    }
+
+    // Direct Chat Drawer Logic
+    function openChatDrawerById(id) {
+      const item = products.find(p => p.id === id);
+      if (item) openChatDrawer(item);
+    }
+
+    function openChatDrawer(item) {
+      activeChatProduct = item;
+      document.getElementById("unreadBadge").classList.add("hidden");
+      document.getElementById("chatSellerAvatar").textContent = item.initials;
+      document.getElementById("chatSellerName").textContent = `${item.seller} (${item.hostel})`;
+      document.getElementById("chatItemContext").textContent = `${item.title} • ₹${item.price.toLocaleString("en-IN")}`;
+
+      if (!chatThreads[item.id]) {
+        chatThreads[item.id] = [
+          {
+            sender: "seller",
+            text: `Hi! I'm selling my ${item.title} (${item.condition}) from ${item.hostel}. We can meet at ${item.safeSpot} or near ${item.academicBlock}.`,
+            time: "Just now"
+          }
+        ];
+      }
+
+      renderChatMessages();
+      document.getElementById("chatOverlay").classList.remove("hidden");
+      document.getElementById("chatDrawer").classList.remove("translate-x-full");
+    }
+
+    function closeChatDrawer() {
+      document.getElementById("chatOverlay").classList.add("hidden");
+      document.getElementById("chatDrawer").classList.add("translate-x-full");
+    }
+
+    function renderChatMessages() {
+      const container = document.getElementById("chatMessages");
+      const thread = chatThreads[activeChatProduct.id] || [];
+
+      container.innerHTML = thread.map(msg => {
+        const isBuyer = msg.sender === "buyer";
+        return `
+          <div class="flex flex-col ${isBuyer ? "items-end" : "items-start"}">
+            <div class="max-w-[82%] px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm leading-relaxed ${
+              isBuyer
+                ? "bg-red-600 text-white rounded-br-xs"
+                : "bg-white text-neutral-800 border border-gray-100 rounded-bl-xs shadow-2xs"
+            }">
+              ${msg.text}
+            </div>
+            <span class="text-[10px] text-neutral-400 mt-1 px-1">${msg.time}</span>
+          </div>
+        `;
+      }).join("");
+
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function sendQuickMessage(text) {
+      appendBuyerMessage(text);
+    }
+
+    function handleChatSubmit(event) {
+      event.preventDefault();
+      const input = document.getElementById("chatInput");
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = "";
+      appendBuyerMessage(text);
+    }
+
+    function appendBuyerMessage(text) {
+      const id = activeChatProduct.id;
+      if (!chatThreads[id]) chatThreads[id] = [];
+
+      const now = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      chatThreads[id].push({ sender: "buyer", text, time: now });
+      renderChatMessages();
+
+      setTimeout(() => {
+        const discounted = Math.max(50, Math.round(activeChatProduct.price * 0.9));
+        let reply = `Sounds good! Meet me at ${activeChatProduct.safeSpot} or ${activeChatProduct.academicBlock} after 5 PM lectures?`;
+        if (text.toLowerCase().includes("discount") || text.toLowerCase().includes("price")) {
+          reply = `Since you're at CGC Mohali, I can do ₹${discounted.toLocaleString("en-IN")} final if you pick it up from ${activeChatProduct.hostel} today!`;
+        }
+        chatThreads[id].push({ sender: "seller", text: reply, time: now });
+        renderChatMessages();
+      }, 750);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      document.getElementById("toastMessage").textContent = msg;
+      toast.classList.remove("hidden");
+      toast.classList.add("flex");
+      setTimeout(() => {
+        toast.classList.add("hidden");
+        toast.classList.remove("flex");
+      }, 3500);
+    }
+
+    renderProducts(products);
+  </script>
+</body>
+</html>
